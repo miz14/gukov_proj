@@ -51,9 +51,9 @@ services:
       - "traefik.http.routers.site1-http.rule=Host(`${SITE1_DOMAIN}`, `www.${SITE1_DOMAIN}`)"
       - "traefik.http.routers.site1-http.middlewares=redirect-to-https"
       
-      - "traefik.http.routers.site1.entrypoints=websecure"
-      - "traefik.http.routers.site1.rule=Host(`${SITE1_DOMAIN}`, `www.${SITE1_DOMAIN}`)"
-      - "traefik.http.routers.site1.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.site1-main.entrypoints=websecure"
+      - "traefik.http.routers.site1-main.rule=Host(`${SITE1_DOMAIN}`, `www.${SITE1_DOMAIN}`)"
+      - "traefik.http.routers.site1-main.tls.certresolver=letsencrypt"
     restart: unless-stopped
     networks:
       - app-network
@@ -63,13 +63,13 @@ services:
     container_name: site2
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.site1-http.entrypoints=web"
-      - "traefik.http.routers.site1-http.rule=Host(`${SITE1_DOMAIN}`, `www.${SITE1_DOMAIN}`)"
-      - "traefik.http.routers.site1-http.middlewares=redirect-to-https"
+      - "traefik.http.routers.site2-http.entrypoints=web"
+      - "traefik.http.routers.site2-http.rule=Host(`${SITE1_DOMAIN}`, `www.${SITE1_DOMAIN}`)"
+      - "traefik.http.routers.site2-http.middlewares=redirect-to-https"
       
-      - "traefik.http.routers.site1.entrypoints=websecure"
-      - "traefik.http.routers.site1.rule=Host(`${SITE1_DOMAIN}`, `www.${SITE1_DOMAIN}`)"
-      - "traefik.http.routers.site1.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.site2-main.entrypoints=websecure"
+      - "traefik.http.routers.site2-main.rule=Host(`${SITE1_DOMAIN}`, `www.${SITE1_DOMAIN}`)"
+      - "traefik.http.routers.site2-main.tls.certresolver=letsencrypt"
     restart: unless-stopped
     networks:
       - app-network
@@ -79,6 +79,8 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.middlewares.strip-api.stripPrefix.prefixes=/api"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
 
       - "traefik.http.routers.site1-api.entrypoints=websecure"
       - "traefik.http.routers.site1-api.rule=Host(`${SITE1_DOMAIN}`, `www.${SITE1_DOMAIN}`) && PathPrefix(`/api`)"
