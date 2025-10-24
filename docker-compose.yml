@@ -22,8 +22,6 @@ services:
     build: ./sites/site1
     container_name: site1
     restart: unless-stopped
-    ports:
-      - "127.0.0.1:80:80"
     networks:
       - app-network
 
@@ -31,8 +29,6 @@ services:
     build: ./sites/site2
     container_name: site2
     restart: unless-stopped
-    ports:
-      - "127.0.0.1:80:80"
     networks:
       - app-network
 
