@@ -90,12 +90,14 @@ services:
       - "traefik.http.routers.site2-api.entrypoints=websecure"
       - "traefik.http.routers.site2-api.rule=(Host(`${SITE2_DOMAIN}`) || Host(`www.${SITE2_DOMAIN}`)) && PathPrefix(`/api`)"
       - "traefik.http.routers.site2-api.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.site2-api.middlewares=strip-api-prefix"
+      - "traefik.http.routers.site2-api.middlewares=strip-api-prefix"   
     restart: unless-stopped
     environment:
       - GOOGLE_POST_URL=${GOOGLE_POST_URL}
     networks:
       - app-network
+    depends_on:
+      - traefik
 
 networks:
   app-network:
