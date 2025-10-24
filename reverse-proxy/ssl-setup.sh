@@ -22,9 +22,9 @@ get_certificate() {
         --agree-tos \
         --no-eff-email \
         --non-interactive \
-        --config-dir /etc/ssl \
-        --work-dir /etc/ssl/work \
-        --logs-dir /etc/ssl/log
+        --config-dir /etc/letsencrypt \
+        --work-dir /etc/letsencrypt/work \
+        --logs-dir /etc/letsencrypt/log
 
     if [ $? -eq 0 ]; then
         echo "SSL сертификат для $domain успешно создан"
