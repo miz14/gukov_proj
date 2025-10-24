@@ -1,6 +1,6 @@
 FROM nginx:alpine
 
-RUN apk add --no-cache gettext
+RUN apk add --no-cache gettext certbot
 
 COPY nginx.conf.template /etc/nginx/nginx.conf.template
 
@@ -11,5 +11,6 @@ RUN chmod +x /nginx-config-setup.sh /ssl-setup.sh
 ENTRYPOINT ["/nginx-config-setup.sh"]
 CMD ["nginx", "-g", "daemon off;"]
 
-CMD ["/nginx-config-setup.sh"]
+ENTRYPOINT ["/ssl-setup.sh"]
+
 # RUN echo "0 */12 * * * /ssl-magager.sh" >> /etc/crontabs/root

@@ -1,6 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
 echo "Проверка SSL сертификатов..."
+
+DOMAINS="${SITE1_DOMAIN} ${SITE2_DOMAIN}"
 
 get_certificate() {
     local domain=$1
@@ -39,3 +41,9 @@ enable_https_redirect() {
     echo "Активация редиректа с HTTP на HTTPS для $domain"
     # local config_file="/etc/nginx/sites-available/$domain.conf"
 }
+
+for domain in $DOMAINS; do
+    get_certificate "$domain"
+done
+
+echo "SSL сертификаты успешно проверены"
