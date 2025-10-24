@@ -29,8 +29,12 @@ jobs:
           key: ${{ secrets.SERVER_SSK_KEY }}
           script: |
             cd /home/app
-            
+            chmod +x setup.sh
+            ./setup.sh
+
             SITE1_DOMAIN='${{ secrets.SITE1_DOMAIN }}' \
             SITE2_DOMAIN='${{ secrets.SITE2_DOMAIN }}' \
             GOOGLE_POST_URL='${{ secrets.GOOGLE_POST_URL }}' \
             docker-compose up -d --build
+
+            docker image prune -f
