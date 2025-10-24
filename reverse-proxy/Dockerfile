@@ -11,6 +11,6 @@ RUN chmod +x /nginx-config-setup.sh /ssl-setup.sh
 ENTRYPOINT ["/nginx-config-setup.sh"]
 CMD ["nginx", "-g", "daemon off;"]
 
-ENTRYPOINT ["/ssl-setup.sh"]
+# ENTRYPOINT ["/ssl-setup.sh"]
 
 # RUN echo "0 */12 * * * /ssl-magager.sh" >> /etc/crontabs/root
