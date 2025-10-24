@@ -38,8 +38,6 @@ services:
       - GOOGLE_POST_URL=${GOOGLE_POST_URL}
     networks:
       - app-network
-    depends_on:
-      - traefik
 
 networks:
   app-network:
