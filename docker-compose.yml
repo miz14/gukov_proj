@@ -64,11 +64,11 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.site2-http.entrypoints=web"
-      - "traefik.http.routers.site2-http.rule=Host(`${SITE1_DOMAIN}`, `www.${SITE1_DOMAIN}`)"
+      - "traefik.http.routers.site2-http.rule=Host(`${SITE2_DOMAIN}`, `www.${SITE2_DOMAIN}`)"
       - "traefik.http.routers.site2-http.middlewares=redirect-to-https"
       
       - "traefik.http.routers.site2-main.entrypoints=websecure"
-      - "traefik.http.routers.site2-main.rule=Host(`${SITE1_DOMAIN}`, `www.${SITE1_DOMAIN}`)"
+      - "traefik.http.routers.site2-main.rule=Host(`${SITE2_DOMAIN}`, `www.${SITE2_DOMAIN}`)"
       - "traefik.http.routers.site2-main.tls.certresolver=letsencrypt"
     restart: unless-stopped
     networks:
