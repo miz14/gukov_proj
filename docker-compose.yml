@@ -1,21 +1,4 @@
 services:
-  # reverse-proxy:
-  #   build: ./reverse-proxy
-  #   container_name: reverse-proxy
-  #   restart: unless-stopped
-  #   ports:
-  #     - "80:80"
-  #     - "443:443"
-  #   networks:
-  #     - app-network
-  #   environment:
-  #     - SITE1_DOMAIN=${SITE1_DOMAIN}
-  #     - SITE2_DOMAIN=${SITE2_DOMAIN}
-  #   depends_on:
-  #     - site1
-  #     - site2
-  #     - forms-data-handler
-
   traefik:
     image: traefik:latest
     container_name: traefik
@@ -33,7 +16,7 @@ services:
     labels:
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
-      - "traefik.http.middlewares.strip-api-prefix.stripPrefix.prefixes=/api"
+      - "traefik.http.middlewares.strip-api-prefix.stripprefix.prefixes=/api"
     ports:
       - "80:80"
       - "443:443"
@@ -52,6 +35,7 @@ services:
 
       - "traefik.http.routers.site1-http.entrypoints=web"
       - "traefik.http.routers.site1-http.rule=Host(`${SITE1_DOMAIN}`) || Host(`www.${SITE1_DOMAIN}`)"
+      - "traefik.http.routers.site1-http.middlewares=redirect-to-https"
       
       - "traefik.http.routers.site1-main.entrypoints=websecure"
       - "traefik.http.routers.site1-main.rule=Host(`${SITE1_DOMAIN}`) || Host(`www.${SITE1_DOMAIN}`)"
@@ -64,10 +48,9 @@ services:
     build: ./sites/site2
     container_name: site2
     labels:
-      - "traefik.enable=true"
-
       - "traefik.http.routers.site2-http.entrypoints=web"
       - "traefik.http.routers.site2-http.rule=Host(`${SITE2_DOMAIN}`) || Host(`www.${SITE2_DOMAIN}`)"
+      - "traefik.http.routers.site2-http.middlewares=redirect-to-https"
       
       - "traefik.http.routers.site2-main.entrypoints=websecure"
       - "traefik.http.routers.site2-main.rule=Host(`${SITE2_DOMAIN}`) || Host(`www.${SITE2_DOMAIN}`)"
@@ -79,23 +62,24 @@ services:
   forms-data-handler:
     build: ./forms-data-handler/
     labels:
-      - "traefik.enable=true"
       - "traefik.http.routers.site1-api.entrypoints=websecure"
       - "traefik.http.routers.site1-api.rule=(Host(`${SITE1_DOMAIN}`) || Host(`www.${SITE1_DOMAIN}`)) && PathPrefix(`/api`)"
       - "traefik.http.routers.site1-api.tls.certresolver=letsencrypt"
       - "traefik.http.routers.site1-api.middlewares=strip-api-prefix"
+      - "traefik.http.routers.site1-api.service=api-service"
       
       - "traefik.http.routers.site2-api.entrypoints=websecure"
       - "traefik.http.routers.site2-api.rule=(Host(`${SITE2_DOMAIN}`) || Host(`www.${SITE2_DOMAIN}`)) && PathPrefix(`/api`)"
       - "traefik.http.routers.site2-api.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.site2-api.middlewares=strip-api-prefix"   
+      - "traefik.http.routers.site2-api.middlewares=strip-api-prefix"
+      - "traefik.http.routers.site2-api.service=api-service"
+
+      - "traefik.http.services.api-service.loadbalancer.server.port=3000"
     restart: unless-stopped
     environment:
       - GOOGLE_POST_URL=${GOOGLE_POST_URL}
     networks:
       - app-network
-    depends_on:
-      - traefik
 
 networks:
   app-network:
