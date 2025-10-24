@@ -1,10 +1,45 @@
 version: '3.8'
 
 services:
+  reverse-proxy:
+    build: ./reverse-proxy
+    container_name: reverse-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - app-network
+    environment:
+      - SITE1_DOMAIN=${SITE1_DOMAIN}
+      - SITE2_DOMAIN=${SITE2_DOMAIN}
+    depends_on:
+      - site1
+      - site2
+      - forms-data-handler
+
   site1:
     build: ./sites/site1
     container_name: site1
-    ports:
-      - "80:80"
-      # - "443:443"
-    
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  site2:
+    build: ./sites/site2
+    container_name: site2
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  forms-data-handler:
+    build: ./forms-data-handler/
+    restart: unless-stopped
+    environment:
+      - GOOGLE_POST_URL=${GOOGLE_POST_URL}
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
