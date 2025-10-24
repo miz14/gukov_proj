@@ -69,8 +69,8 @@ http {
         server_name ${SITE1_DOMAIN} www.${SITE1_DOMAIN};
 
         # SSL сертификаты
-        ssl_certificate /etc/ssl/live/${SITE1_DOMAIN}/fullchain.pem;
-        ssl_certificate_key /etc/ssl/live/${SITE1_DOMAIN}/privkey.pem;
+        ssl_certificate /etc/letsencrypt/live/${SITE1_DOMAIN}/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/${SITE1_DOMAIN}/privkey.pem;
 
         ssl_protocols TLSv1.2 TLSv1.3;
         ssl_ciphers ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512;
@@ -97,8 +97,8 @@ http {
         server_name ${SITE2_DOMAIN} www.${SITE2_DOMAIN};
 
         # SSL сертификаты
-        ssl_certificate /etc/ssl/live/${SITE2_DOMAIN}/fullchain.pem;
-        ssl_certificate_key /etc/ssl/live/${SITE2_DOMAIN}/privkey.pem;
+        ssl_certificate /etc/letsencrypt/live/${SITE2_DOMAIN}/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/${SITE2_DOMAIN}/privkey.pem;
 
         ssl_protocols TLSv1.2 TLSv1.3;
         ssl_ciphers ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512;
