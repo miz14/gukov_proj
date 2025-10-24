@@ -32,6 +32,8 @@ jobs:
             chmod +x setup.sh
             ./setup.sh
 
+            docker-compose down
+
             SITE1_DOMAIN='${{ secrets.SITE1_DOMAIN }}' \
             SITE2_DOMAIN='${{ secrets.SITE2_DOMAIN }}' \
             GOOGLE_POST_URL='${{ secrets.GOOGLE_POST_URL }}' \
