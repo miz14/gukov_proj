@@ -73,7 +73,6 @@ http {
         ssl_certificate_key /etc/letsencrypt/live/${SITE1_DOMAIN}/privkey.pem;
 
         ssl_protocols TLSv1.2 TLSv1.3;
-        ssl_ciphers ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512;
         
         location / {
             proxy_pass http://site1;
@@ -101,7 +100,6 @@ http {
         ssl_certificate_key /etc/letsencrypt/live/${SITE2_DOMAIN}/privkey.pem;
 
         ssl_protocols TLSv1.2 TLSv1.3;
-        ssl_ciphers ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512;
         
         location / {
             proxy_pass http://site2;
