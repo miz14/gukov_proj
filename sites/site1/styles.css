@@ -1,0 +1,403 @@
+:root {
+    --cl-blue: #1f5bff;
+    --cl-dark-blue: #184ad4;
+    --cl-white: #fff;
+    --cl-bg: #f3f6fc;
+    --cl-block: #fff;
+    --cl-orange: #f5914f;
+    --cl-border: #aaa;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+input {
+    min-width: 0;
+}
+
+button {
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background: none;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    line-height: 1.5em;
+    background-color: var(--cl-bg);
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: var(--cl-block);
+    border-bottom: 1px solid var(--cl-border);
+}
+
+.block-delimeter {
+    background-color: var(--cl-block);
+}
+
+.block-delimeter-container {
+    max-width: calc(600px + 10%);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.block-delimeter-line {
+    height: 2px;
+    background-color: var(--cl-border);
+}
+
+#services,
+#prices,
+#faq,
+#contacts {
+    background-color: var(--cl-block);
+}
+
+#about-me,
+#services,
+#prices,
+#advantages,
+#faq,
+#reviews,
+#contacts {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.block-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.inner-container {
+    max-width: calc(600px + 10%);
+    margin: 0 auto;
+}
+
+.menu {
+    height: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+    gap: 10%;
+    font-size: 18px;
+    line-height: 2.5em;
+}
+
+.menu li {
+    display: block;
+}
+
+.menu li:hover {
+    color: var(--cl-blue);
+}
+
+#about-me {
+    margin-top: 50px;
+}
+
+.card-columns {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 10px
+}
+
+.card-columns>div {
+    flex-basis: 50%;
+}
+
+.card-img-block {
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-img-block img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-tittle,
+.card-subtitle,
+.card-delimeter {
+    margin-bottom: 10px;
+}
+
+.card-tittle {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.card-subtitle {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.card-delimeter {
+    width: 40px;
+    height: 6px;
+    background-color: var(--cl-blue);
+}
+
+.block-tittle {
+    margin-top: 10px;
+    font-size: 32px;
+    line-height: 1.2em;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.block-subtitle {
+    font-size: 16px;
+    margin-bottom: 40px;
+    text-align: center;
+    padding: 0 15%;
+}
+
+.services-list {
+    padding-left: 20px;
+}
+
+.services-list>li {
+    font-weight: 500;
+    list-style: outside;
+    margin-bottom: 8px;
+}
+
+.prices-list {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    row-gap: 16px;
+}
+
+.prices-list>li {
+    display: contents;
+}
+
+.prices-list>li>span {
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--cl-border);
+}
+
+.prices-list>li>span:nth-child(2) {
+    padding-left: 20px;
+    text-align: right;
+}
+
+.money {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.advantages-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(400px, 50%), 1fr));
+    gap: 30px;
+    list-style: none;
+}
+
+.advantages-list>li {
+    padding-left: 30px;
+    background-image: url('imgs/check.svg');
+    background-repeat: no-repeat;
+    background-position: left 4px;
+    background-size: 20px 20px;
+}
+
+.advantages-list>li>h3 {
+    margin-bottom: 10px;
+}
+
+.faq-list {
+    list-style: none;
+    border-top: 1px solid var(--cl-border);
+}
+
+.faq-li-button {
+    cursor: pointer;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.faq-li-button h3 {
+    text-align: left;
+    font-size: 18px;
+}
+
+.faq-li-button div {
+    width: 40px;
+    height: 40px;
+    background-image: url('imgs/plus.svg');
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+    flex-shrink: 0;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border-radius: 50%;
+}
+
+.faq-li-button:hover div {
+    background-color: var(--cl-orange);
+}
+
+.faq-li-button.active div {
+    transform: rotate(-45deg);
+}
+
+.faq-li-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.5s ease;
+    border-bottom: 1px solid var(--cl-border);
+    padding: 10px 0;
+}
+
+.faq-li-wrapper.show {
+    grid-template-rows: 1fr;
+}
+
+.faq-li-wrapper p {
+    overflow: hidden;
+}
+
+.reviews-list {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    /* grid-template-rows: repeat(auto-fit, 100px); */
+}
+
+
+.review-card {
+    grid-template-rows: repeat(3, min-content);
+    display: grid;
+    padding: 20px;
+    column-gap: 30px;
+    row-gap: 6px;
+}
+
+.review-card-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+
+    grid-area: 1 / 1 / 4 / 1;
+
+}
+
+.review-card-text {
+    grid-area: 1 / 2;
+}
+
+.review-card-name {
+    font-weight: 700;
+    grid-area: 2 / 2;
+}
+
+.review-card-service {
+    grid-area: 3 / 2;
+}
+
+.contacts-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(max(350px, 45%), 1fr));
+    gap: 20px;
+    margin-top: 60px;
+}
+
+.contacts-info-block {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 22px;
+}
+
+.contacts-info-block p:nth-child(3) {
+    font-size: 14px;
+}
+
+@media (max-width: 800px) {
+    .review-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 700px) {
+    .card-columns {
+        flex-direction: column;
+    }
+
+    .card-img-block {
+        max-height: 400px;
+    }
+
+    #about-me,
+    #services,
+    #prices,
+    #advantages,
+    #faq,
+    #reviews,
+    #contacts {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .block-tittle {
+        font-size: 28px;
+    }
+
+    .menu {
+        font-size: 16px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+}
+
+@media (max-width: 400px) {
+    .contacts-columns {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .advantages-list {
+        grid-template-columns: 1fr;
+    }
+
+}

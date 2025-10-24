@@ -1,0 +1,33 @@
+name: Deploy on server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1.Checkout code
+        uses: actions/checkout@v4
+
+      - name: 2.Copy files to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SERVER_SSK_KEY  }}
+          source: "."
+          target: "/home/app"
+
+      - name: 3.Run script on server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SERVER_SSK_KEY }}
+          script: |
+            cd /home/app
+            docker-compose pull
+            docker-compose up -d --build
