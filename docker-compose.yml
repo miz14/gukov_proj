@@ -3,6 +3,8 @@ services:
     build: ./reverse-proxy
     container_name: reverse-proxy
     restart: unless-stopped
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
     ports:
       - "80:80"
       - "443:443"

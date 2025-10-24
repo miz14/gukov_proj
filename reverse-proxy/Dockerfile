@@ -11,5 +11,5 @@ RUN chmod +x /docker-entrypoint.sh /ssl-magager.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
 
-ENTRYPOINT ["/ssl-magager.sh"]
-RUN echo "0 */12 * * * /ssl-magager.sh" >> /etc/crontabs/root
+# ENTRYPOINT ["/ssl-magager.sh"]
+# RUN echo "0 */12 * * * /ssl-magager.sh" >> /etc/crontabs/root
