@@ -32,12 +32,15 @@ jobs:
             chmod +x setup.sh
             ./setup.sh
 
-            docker-compose down
+            cat > .env << EOF
+            SITE1_DOMAIN=${{ secrets.SITE1_DOMAIN }}
+            SITE2_DOMAIN=${{ secrets.SITE2_DOMAIN }}
+            GOOGLE_POST_URL=${{ secrets.GOOGLE_POST_URL }}
+            LETSENCRYPT_EMAIL=${{ secrets.LETSENCRYPT_EMAIL }}
+            EOF
 
-            SITE1_DOMAIN='${{ secrets.SITE1_DOMAIN }}' \
-            SITE2_DOMAIN='${{ secrets.SITE2_DOMAIN }}' \
-            GOOGLE_POST_URL='${{ secrets.GOOGLE_POST_URL }}' \
-            LETSENCRYPT_EMAIL='${{ secrets.LETSENCRYPT_EMAIL }}' \
+            docker-compose down
+            
             docker-compose up -d --build
 
             docker image prune -f
