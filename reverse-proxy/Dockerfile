@@ -4,12 +4,12 @@ RUN apk add --no-cache gettext
 
 COPY nginx.conf.template /etc/nginx/nginx.conf.template
 
-COPY docker-entrypoint.sh /
-COPY ssl-magager.sh /
-RUN chmod +x /docker-entrypoint.sh /ssl-magager.sh
+COPY nginx-config-setup.sh /
+COPY ssl-setup.sh /
+RUN chmod +x /nginx-config-setup.sh /ssl-setup.sh
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["/nginx-config-setup.sh"]
 CMD ["nginx", "-g", "daemon off;"]
 
-ENTRYPOINT ["/ssl-magager.sh"]
-RUN echo "0 */12 * * * /ssl-magager.sh" >> /etc/crontabs/root
+CMD ["/nginx-config-setup.sh"]
+# RUN echo "0 */12 * * * /ssl-magager.sh" >> /etc/crontabs/root

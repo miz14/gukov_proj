@@ -61,4 +61,62 @@ http {
             proxy_set_header X-Forwarded-Proto $scheme;
         }
     }
+
+
+
+    server {
+        listen 443 ssl;
+        server_name ${SITE1_DOMAIN} www.${SITE1_DOMAIN};
+
+        # SSL сертификаты
+        ssl_certificate /etc/ssl/live/${SITE1_DOMAIN}/fullchain.pem;
+        ssl_certificate_key /etc/ssl/live/${SITE1_DOMAIN}/privkey.pem;
+
+        ssl_protocols TLSv1.2 TLSv1.3;
+        ssl_ciphers ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512;
+        
+        location / {
+            proxy_pass http://site1;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+        location /api/ {
+            proxy_pass http://forms-data-handler/;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+
+    server {
+        listen 443 ssl;
+        server_name ${SITE2_DOMAIN} www.${SITE2_DOMAIN};
+
+        # SSL сертификаты
+        ssl_certificate /etc/ssl/live/${SITE2_DOMAIN}/fullchain.pem;
+        ssl_certificate_key /etc/ssl/live/${SITE2_DOMAIN}/privkey.pem;
+
+        ssl_protocols TLSv1.2 TLSv1.3;
+        ssl_ciphers ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512;
+        
+        location / {
+            proxy_pass http://site2;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+        location /api/ {
+            proxy_pass http://forms-data-handler/;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
 }
