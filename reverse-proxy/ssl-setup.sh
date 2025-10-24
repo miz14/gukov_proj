@@ -15,6 +15,9 @@ get_certificate() {
     fi
 
     echo "Создание SSL сертификата для $domain"
+    # Останавливаем nginx временно для получения сертификата
+    nginx -s stop
+    
     certbot certonly --standalone \
         --domain $domain \
         --domain www.$domain \
@@ -26,10 +29,13 @@ get_certificate() {
         --work-dir /etc/letsencrypt/work \
         --logs-dir /etc/letsencrypt/log
 
-    if [ $? -eq 0 ]; then
+    local result=$?
+    
+    # Перезапускаем nginx
+    nginx -g "daemon off;" &
+    
+    if [ $result -eq 0 ]; then
         echo "SSL сертификат для $domain успешно создан"
-        # Активируем редирект с HTTP на HTTPS
-        enable_https_redirect "$domain"
     else
         echo "Ошибка при создании SSL сертификата для $domain"
     fi

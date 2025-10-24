@@ -13,6 +13,7 @@ services:
     environment:
       - SITE1_DOMAIN=${SITE1_DOMAIN}
       - SITE2_DOMAIN=${SITE2_DOMAIN}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
     depends_on:
       - site1
       - site2
