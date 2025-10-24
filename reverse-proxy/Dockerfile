@@ -6,7 +6,7 @@ COPY nginx.conf.template /etc/nginx/nginx.conf.template
 
 COPY docker-entrypoint.sh /
 COPY ssl-magager.sh /
-RUN chmod +x /docker-entrypoint.sh /ssl-magager.sh /test.sh
+RUN chmod +x /docker-entrypoint.sh /ssl-magager.sh
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
