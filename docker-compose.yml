@@ -28,7 +28,6 @@ services:
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
       - --providers.docker.network=app-network
-      - --providers.file.filename=/etc/traefik/dynamic.yml
 
       - --certificatesresolvers.letsencrypt.acme.email=${LETSENCRYPT_EMAIL}
       - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
@@ -39,7 +38,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./letsencrypt:/letsencrypt
-      - ./traefik-dynamic.yml:/etc/traefik/dynamic.yml
     networks:
       - app-network
     restart: unless-stopped
@@ -80,16 +78,16 @@ services:
     build: ./forms-data-handler/
     labels:
       - "traefik.enable=true"
+      - "traefik.http.middlewares.strip-api.stripPrefix.prefixes=/api"
+
       - "traefik.http.routers.site1-api.entrypoints=websecure"
       - "traefik.http.routers.site1-api.rule=Host(`${SITE1_DOMAIN}`, `www.${SITE1_DOMAIN}`) && PathPrefix(`/api`)"
       - "traefik.http.routers.site1-api.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.site1-api.service=forms-data-handler-service"
       - "traefik.http.routers.site1-api.middlewares=strip-api-prefix"
       
       - "traefik.http.routers.site2-api.entrypoints=websecure"
       - "traefik.http.routers.site2-api.rule=Host(`${SITE2_DOMAIN}`, `www.${SITE2_DOMAIN}`) && PathPrefix(`/api`)"
       - "traefik.http.routers.site2-api.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.site2-api.service=forms-data-handler-service"
       - "traefik.http.routers.site2-api.middlewares=strip-api-prefix"
     restart: unless-stopped
     environment:
