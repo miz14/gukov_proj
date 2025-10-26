@@ -12,7 +12,5 @@ RUN chmod +x /nginx-config-setup.sh /ssl-nginx-config-setup.sh /ssl-setup.sh /en
 
 RUN mkdir -p /var/www/certbot
 
-RUN /nginx-config-setup.sh
-
 ENTRYPOINT ["/entrypoint.sh"]
 CMD []

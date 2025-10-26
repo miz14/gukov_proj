@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Генерируем временную HTTP конфигурацию для получения сертификатов
+/nginx-config-setup.sh
 
 # Запускаем nginx с HTTP конфигурацией
 nginx -g 'daemon off;' &

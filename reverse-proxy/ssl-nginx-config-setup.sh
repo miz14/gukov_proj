@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # Генерируем полную конфигурацию с SSL
+echo "=== Генерация полной конфигурации nginx ==="
 cat > /etc/nginx/nginx.conf << 'EOF'
 events {
     worker_connections 1024;

@@ -1,6 +1,8 @@
 #!/bin/sh
 
 # Генерируем временную HTTP-конфигурацию для получения сертификатов
+echo "=== Генрация HTTP конфигурации nginx ==="
+
 echo "Домены: $SITE1_DOMAIN, $SITE2_DOMAIN"
 
 cat > /etc/nginx/nginx.conf << 'EOF'
@@ -81,4 +83,4 @@ EOF
 envsubst '${SITE1_DOMAIN} ${SITE2_DOMAIN}' < /etc/nginx/nginx.conf > /etc/nginx/nginx.conf.tmp
 mv /etc/nginx/nginx.conf.tmp /etc/nginx/nginx.conf
 
-echo "Nginx HTTP конфигурация сгенерирована"
+echo "=== Nginx HTTP конфигурация сгенерирована ==="
