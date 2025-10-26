@@ -38,6 +38,7 @@ jobs:
             GOOGLE_POST_URL=${{ secrets.GOOGLE_POST_URL }}
             LETSENCRYPT_EMAIL=${{ secrets.LETSENCRYPT_EMAIL }}
             BOT1_TOKEN=${{ secrets.BOT1_TOKEN }}
+            BOT2_TOKEN=${{ secrets.BOT2_TOKEN }}
             EOF
 
             docker compose down --remove-orphans
