@@ -84,3 +84,4 @@ envsubst '${SITE1_DOMAIN} ${SITE2_DOMAIN}' < /etc/nginx/nginx.conf > /etc/nginx/
 mv /etc/nginx/nginx.conf.tmp /etc/nginx/nginx.conf
 
 echo "=== Nginx HTTP конфигурация сгенерирована ==="
+echo ""

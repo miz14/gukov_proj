@@ -42,6 +42,13 @@ services:
     networks:
       - app-network
 
+  bot1:
+    build: ./bots/bot1
+    container_name: bot1
+    restart: unless-stopped
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge

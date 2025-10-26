@@ -96,7 +96,7 @@ form.onsubmit = async (e) => {
     e.preventDefault();
     const send_data = {
         service: 'Юридические услуги в сфере пенсионного права',
-        sent_from: 'site1',
+        sent_from: window.location.hostname,
         name: nameInput.value,
         phone_or_email: document.querySelector('input[name="phone_or_email"]:checked').value,
         phone: getPhoneValue(),
