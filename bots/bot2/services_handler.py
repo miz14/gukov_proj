@@ -4,18 +4,17 @@ from form.states import FormStates
 import os
 
 services = [
-    'Назначение страховой пенсии',
-    'Назначение досрочной страховой пенсии',
-    'Перерасчет страховой пенсии',
-    'Назначение накопительной пенсии или выплаты.',
-    'Судебный спор с сфр. ',
-    'Запрос архивных справок и документов.'
+    'Правовые персональные консультации', 
+    'Продукт «Базовый проект»',
+    'Продукт «Комплексное проектирование»',
+    'Продукт «Корпоративная безопасность»',
+    'Продукт «Абонентское обслуживание для блогера»'
 ]
 
 def get_services_content():
     text = "\n".join([
         '*Мои услуги:*\n',
-        f'Полный перечень услуг и цен вы можете найти здесь [{os.getenv("SITE1_DOMAIN")}]({os.getenv("SITE1_DOMAIN")})\n\n',
+        f'Полный перечень услуг и цен вы можете найти здесь [{os.getenv("SITE2_DOMAIN")}]({os.getenv("SITE2_DOMAIN")})\n\n',
 
         '*Вы можете выбрать одну из тематик ниже для оставления заявки:*\n',
         *[f'**{i}. {service}**' for i, service in enumerate(services, 1)],
@@ -23,7 +22,8 @@ def get_services_content():
 
     markup = types.InlineKeyboardMarkup()
     btns = [types.InlineKeyboardButton(f'Услуга {i}', callback_data=f'service_{i}') for i in range(1, len(services) + 1)]
-    markup.add(*btns[:3])
+    markup.add(btns[0])
+    markup.add(*btns[1:3])
     markup.add(*btns[3:])
     markup.add(types.InlineKeyboardButton('Главное меню', callback_data='menu'))
 

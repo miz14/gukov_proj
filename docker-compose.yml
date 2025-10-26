@@ -48,9 +48,17 @@ services:
     restart: unless-stopped
     environment:
       - BOT1_TOKEN=${BOT1_TOKEN}
+      - SITE1_DOMAIN=${SITE1_DOMAIN}
       - GOOGLE_POST_URL=${GOOGLE_POST_URL}
-    networks:
-      - app-network
+    
+  bot2:
+    build: ./bots/bot2
+    container_name: bot2
+    restart: unless-stopped
+    environment:
+      - BOT2_TOKEN=${BOT2_TOKEN}
+      - SITE2_DOMAIN=${SITE2_DOMAIN}
+      - GOOGLE_POST_URL=${GOOGLE_POST_URL}
 
 networks:
   app-network:
