@@ -1,4 +1,4 @@
-from telebot.asyncio_storage  import StateRedisStorage
+from telebot.asyncio_storage  import StateRedisStorage, StateMemoryStorage
 from telebot import asyncio_filters  
 from config import BOT_TOKEN
 from telebot.async_telebot import AsyncTeleBot
@@ -16,12 +16,12 @@ from form.cancel_handler import register_cancel_handlers
 from services_handler import register_services_handlers
 
 
-state_storage = StateRedisStorage(
-    host='localhost', 
-    port=6379,
-    db=0
-)
-
+# state_storage = StateRedisStorage(
+#     host='localhost', 
+#     port=6379,
+#     db=0
+# )
+state_storage = StateMemoryStorage()
 bot = AsyncTeleBot(BOT_TOKEN, state_storage=state_storage)
 bot.add_custom_filter(asyncio_filters.StateFilter(bot))
 

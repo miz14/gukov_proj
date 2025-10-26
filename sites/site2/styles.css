@@ -319,6 +319,8 @@ h1 {
 
 .team-card-img {
     border-radius: 12px;
+    max-height: 450px;
+    object-fit: cover;
 }
 
 .team-card-title {

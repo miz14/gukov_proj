@@ -132,6 +132,7 @@ header {
     display: flex;
     border-radius: 10px;
     overflow: hidden;
+    max-height: 600px;
 }
 
 .card-img-block img {
@@ -351,16 +352,17 @@ header {
         gap: 10px;
         text-align: center;
     }
-}
-
-@media (max-width: 700px) {
     .card-columns {
         flex-direction: column;
     }
-
+    
     .card-img-block {
-        max-height: 400px;
+        max-width: 500px;
+        max-height: 450px;
     }
+}
+
+@media (max-width: 700px) {
 
     #about-me,
     #services,
