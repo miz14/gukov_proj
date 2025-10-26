@@ -30,6 +30,9 @@ done
 # Получаем SSL сертификаты
 /ssl-setup.sh
 
+# Настройка автоматического обновления SSL сертификатов
+/ssl-renew-setup.sh
+
 # Генерируем полную SSL конфигурацию
 /ssl-nginx-config-setup.sh
 
