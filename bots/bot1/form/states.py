@@ -1,4 +1,4 @@
-from telebot.handler_backends import State, StatesGroup
+from telebot.asyncio_handler_backends import State, StatesGroup
 
 class FormStates(StatesGroup):
     name = State()
@@ -7,6 +7,4 @@ class FormStates(StatesGroup):
     email = State()
     message = State()
     confirm_data = State()
-    finish = State()
-
     cancel = State()

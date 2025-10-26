@@ -1,6 +1,6 @@
 from telebot import types
 from form.states import FormStates
-from form.confirm_data import get_confirm_data_content
+from form.confirm_data_handler import get_confirm_data_content
 
 def get_message_content():
     text = '*Шаг 4. Введите ваше сообщение*'
@@ -14,22 +14,21 @@ def register_message_handlers(bot):
 
 
     @bot.message_handler(state=FormStates.message)
-    def form_message(message):
+    async def form_message(message):
         chat_id = message.chat.id
         user_id = message.from_user.id
 
         form_text = message.text
 
-        with bot.retrieve_data(user_id, chat_id) as data:
+        async with bot.retrieve_data(user_id, chat_id) as data:
             if data.get('add_service_to_text'):
                 form_text = f'Тема: {data["add_service_to_text"]}. {form_text}'
             if len(form_text) > 1000:
-                bot.send_message(chat_id, f'Слишком длинное сообщение, повторите попытку (${len(form_text)}/1000)', parse_mode='markdown')
+                await bot.send_message(chat_id, f'Слишком длинное сообщение, повторите попытку (${len(form_text)}/1000)', parse_mode='markdown')
                 return
 
             data['all_form_data']['message'] = form_text
-            print(data)
 
-        bot.set_state(user_id, FormStates.confirm_data, chat_id)
-        next_text, next_markup = get_confirm_data_content(bot, user_id, chat_id)
-        bot.send_message(chat_id, next_text, reply_markup=next_markup, parse_mode='markdown')
+        await bot.set_state(user_id, FormStates.confirm_data, chat_id)
+        next_text, next_markup = await get_confirm_data_content(bot, user_id, chat_id)
+        await bot.send_message(chat_id, next_text, reply_markup=next_markup, parse_mode='markdown')

@@ -1,5 +1,5 @@
 from telebot import types
-from form.name import get_name_content
+from form.name_handler import get_name_content
 from form.states import FormStates
 import os
 
@@ -32,26 +32,26 @@ def get_services_content():
 def register_services_handlers(bot):
     
     @bot.callback_query_handler(func=lambda call: call.data == 'services')
-    def callback(call):
+    async def callback(call):
         chat_id = call.message.chat.id
         user_id = call.from_user.id
 
         text, markup = get_services_content()
-        bot.send_message(chat_id, text, reply_markup=markup, parse_mode='markdown')
+        await bot.send_message(chat_id, text, reply_markup=markup, parse_mode='markdown')
 
-        bot.answer_callback_query(call.id)
+        await bot.answer_callback_query(call.id)
 
 
     @bot.callback_query_handler(func=lambda call: call.data.startswith('service_'))
-    def callback(call):
+    async def callback(call):
         i = int(call.data.split('_')[1])
         chat_id = call.message.chat.id
         user_id = call.from_user.id
 
-        with bot.retrieve_data(user_id, chat_id) as data:
+        async with bot.retrieve_data(user_id, chat_id) as data:
             data['add_service_to_text'] = services[i - 1]
-        bot.set_state(user_id, FormStates.name, chat_id)
+        await bot.set_state(user_id, FormStates.name, chat_id)
         text, markup = get_name_content()
-        bot.send_message(chat_id, text, reply_markup=markup, parse_mode='markdown')
+        await bot.send_message(chat_id, text, reply_markup=markup, parse_mode='markdown')
 
-        bot.answer_callback_query(call.id)
+        await bot.answer_callback_query(call.id)

@@ -13,20 +13,20 @@ def get_menu_content():
 def register_menu_handlers(bot):
     @bot.message_handler(commands=['start'])
     
-    def start(message):
+    async def start(message):
         chat_id = message.chat.id
         user_id = message.from_user.id
 
-        bot.delete_state(user_id, chat_id)
+        await bot.delete_state(user_id, chat_id)
         text, markup = get_menu_content()
-        bot.send_message(chat_id, text, reply_markup=markup, parse_mode='markdown')
+        await bot.send_message(chat_id, text, reply_markup=markup, parse_mode='markdown')
 
     @bot.callback_query_handler(func=lambda call: call.data == 'menu')
-    def callback(call):
+    async def callback(call):
         chat_id = call.message.chat.id
         user_id = call.from_user.id
-        bot.answer_callback_query(call.id)
 
-        bot.delete_state(user_id, chat_id)
+        await bot.delete_state(user_id, chat_id)
         text, markup = get_menu_content()
-        bot.send_message(chat_id, text, reply_markup=markup, parse_mode='markdown')
+        await bot.send_message(chat_id, text, reply_markup=markup, parse_mode='markdown')
+        await bot.answer_callback_query(call.id)

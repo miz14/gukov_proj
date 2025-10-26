@@ -1,9 +1,7 @@
 from telebot import types
-from form.states import FormStates
 
 def get_select_phone_or_email_content():
     text = '*Шаг 2. Что вы хотите оставить для обратной связи?*'
-
 
     markup = types.InlineKeyboardMarkup(row_width=2)
 
