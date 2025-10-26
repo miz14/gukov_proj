@@ -15,7 +15,7 @@ services = [
 def get_services_content():
     text = "\n".join([
         '*Мои услуги:*\n',
-        f'Полный перечень услуг и цен вы можете найти здесь [{os.getenv("SITE1_DOMAIN")}]({os.getenv("SITE1_DOMAIN")})\n\n',
+        f'Полный перечень услуг и цен вы можете найти здесь {os.getenv("SITE1_DOMAIN")}\n\n',
 
         '*Вы можете выбрать одну из тематик ниже для оставления заявки:*\n',
         *[f'**{i}. {service}**' for i, service in enumerate(services, 1)],
@@ -37,7 +37,7 @@ def register_services_handlers(bot):
         user_id = call.from_user.id
 
         text, markup = get_services_content()
-        await bot.send_message(chat_id, text, reply_markup=markup, parse_mode='markdown')
+        await bot.send_message(chat_id, text, reply_markup=markup, parse_mode='markdown', disable_web_page_preview=True)
 
         await bot.answer_callback_query(call.id)
 
