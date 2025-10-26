@@ -49,8 +49,7 @@ def register_services_handlers(bot):
         user_id = call.from_user.id
 
         with bot.retrieve_data(user_id, chat_id) as data:
-            data['add_service_to_text'] = services[i]
-            print(data)
+            data['add_service_to_text'] = services[i - 1]
         bot.set_state(user_id, FormStates.name, chat_id)
         text, markup = get_name_content()
         bot.send_message(chat_id, text, reply_markup=markup, parse_mode='markdown')
