@@ -15,3 +15,4 @@ RUN mkdir -p /var/www/certbot
 RUN /nginx-config-setup.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
+CMD []
