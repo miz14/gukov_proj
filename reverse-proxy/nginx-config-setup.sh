@@ -1,6 +1,8 @@
 #!/bin/sh
 
 # Генерируем временную HTTP-конфигурацию для получения сертификатов
+echo "Домены: $SITE1_DOMAIN, $SITE2_DOMAIN"
+
 cat > /etc/nginx/nginx.conf << 'EOF'
 events {
     worker_connections 1024;
