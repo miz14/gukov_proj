@@ -91,4 +91,9 @@ fi
 
 # Создаем файл-маркер о завершении установки
 sudo touch "$MARKER_FILE"
+
+# Для работы redis
+echo "vm.overcommit_memory = 1" | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+
 echo "Установка Docker и компонентов завершена успешно!"

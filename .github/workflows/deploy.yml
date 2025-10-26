@@ -17,7 +17,7 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SERVER_SSK_KEY  }}
+          key: ${{ secrets.SERVER_SSH_KEY  }}
           source: "."
           target: "/home/app"
 
@@ -26,7 +26,7 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SERVER_SSK_KEY }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             cd /home/app
             chmod +x setup.sh
