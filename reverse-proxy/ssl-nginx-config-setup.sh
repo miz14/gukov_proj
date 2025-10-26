@@ -97,4 +97,4 @@ EOF
 envsubst '${SITE1_DOMAIN} ${SITE2_DOMAIN}' < /etc/nginx/nginx.conf > /etc/nginx/nginx.conf.tmp
 mv /etc/nginx/nginx.conf.tmp /etc/nginx/nginx.conf
 
-echo "Nginx SSL конфигурация сгенерирована"
+echo "=== Nginx SSL конфигурация сгенерирована ==="

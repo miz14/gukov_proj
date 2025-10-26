@@ -4,6 +4,12 @@ echo "=== Настройка SSL сертификатов ==="
 
 DOMAINS="${SITE1_DOMAIN} ${SITE2_DOMAIN}"
 
+setup_cron_renewal() {
+    echo "Настройка автоматического обновления SSL сертификатов..."
+    echo "0 */12 * * * /ssl-renew.sh >> /var/log/cron.log 2>&1" > /etc/crontabs/root
+    echo "✅ Cron задача для обновления SSL настроена (каждые 12 часов)"
+}
+
 get_certificate() {
     local domain=$1
 
@@ -42,5 +48,6 @@ get_certificate() {
 for domain in $DOMAINS; do
     get_certificate "$domain"
 done
+
 
 echo "=== Настройка SSL сертификатов окончена ==="
