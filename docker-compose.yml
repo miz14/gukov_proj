@@ -22,7 +22,8 @@ services:
   site1:
     build: ./sites/site1
     container_name: site1
-
+    environment:
+      - SITE1_DOMAIN=${SITE1_DOMAIN}
     restart: unless-stopped
     networks:
       - app-network
@@ -30,6 +31,8 @@ services:
   site2:
     build: ./sites/site2
     container_name: site2
+    environment:
+      - SITE2_DOMAIN=${SITE2_DOMAIN}
     restart: unless-stopped
     networks:
       - app-network
