@@ -2,7 +2,7 @@ FROM nginx:alpine
 
 COPY . /usr/share/nginx/html
 
-COPY generate-sitemap-robots.sh /
+COPY generate-sitemap-robots.sh /generate-sitemap-robots.sh
 
 RUN chmod +x /generate-sitemap-robots.sh
 
