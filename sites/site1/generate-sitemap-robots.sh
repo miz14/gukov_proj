@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 DOMAIN="${SITE1_DOMAIN}"
 
