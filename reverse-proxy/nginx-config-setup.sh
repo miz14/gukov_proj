@@ -28,11 +28,25 @@ http {
         server_name _;
         return 444;
     }
+
+    # Редирект с WWW на основной домен для SITE1
+    server {
+        listen 80;
+        server_name www.${SITE1_DOMAIN};
+        return 301 https://${SITE1_DOMAIN}$request_uri;
+    }
+
+    # Редирект с WWW на основной домен для SITE2
+    server {
+        listen 80;
+        server_name www.${SITE2_DOMAIN};
+        return 301 https://${SITE2_DOMAIN}$request_uri;
+    }
     
     # SITE1 - HTTP конфигурация (для certbot)
     server {
         listen 80;
-        server_name ${SITE1_DOMAIN} www.${SITE1_DOMAIN};
+        server_name ${SITE1_DOMAIN};
 
         # Certbot challenges
         location /.well-known/acme-challenge/ {
@@ -56,7 +70,7 @@ http {
     # SITE2 - HTTP конфигурация (для certbot)
     server {
         listen 80;
-        server_name ${SITE2_DOMAIN} www.${SITE2_DOMAIN};
+        server_name ${SITE2_DOMAIN};
 
         # Certbot challenges
         location /.well-known/acme-challenge/ {

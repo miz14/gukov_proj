@@ -26,23 +26,58 @@ http {
         return 444;
     }
     
-    # HTTP редирект на HTTPS
+    # HTTP редирект на HTTPS с одновременным редиректом WWW на основной домен
     server {
         listen 80;
-        server_name ${SITE1_DOMAIN} www.${SITE1_DOMAIN};
-        return 301 https://$host$request_uri;
+        server_name www.${SITE1_DOMAIN};
+        return 301 https://${SITE1_DOMAIN}$request_uri;
     }
 
     server {
         listen 80;
-        server_name ${SITE2_DOMAIN} www.${SITE2_DOMAIN};
-        return 301 https://$host$request_uri;
+        server_name www.${SITE2_DOMAIN};
+        return 301 https://${SITE2_DOMAIN}$request_uri;
+    }
+
+    server {
+        listen 80;
+        server_name ${SITE1_DOMAIN};
+        return 301 https://${SITE1_DOMAIN}$request_uri;
+    }
+    server {
+        listen 80;
+        server_name ${SITE2_DOMAIN};
+        return 301 https://${SITE2_DOMAIN}$request_uri;
+    }
+
+    # РЕДИРЕКТ с WWW на основной домен для HTTPS SITE1
+    server {
+        listen 443 ssl;
+        server_name www.${SITE1_DOMAIN};
+
+        ssl_certificate /etc/letsencrypt/live/${SITE1_DOMAIN}/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/${SITE1_DOMAIN}/privkey.pem;
+        ssl_protocols TLSv1.2 TLSv1.3;
+        
+        return 301 https://${SITE1_DOMAIN}$request_uri;
+    }
+
+    # РЕДИРЕКТ с WWW на основной домен для HTTPS SITE2
+    server {
+        listen 443 ssl;
+        server_name www.${SITE2_DOMAIN};
+
+        ssl_certificate /etc/letsencrypt/live/${SITE2_DOMAIN}/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/${SITE2_DOMAIN}/privkey.pem;
+        ssl_protocols TLSv1.2 TLSv1.3;
+        
+        return 301 https://${SITE2_DOMAIN}$request_uri;
     }
 
     # HTTPS конфигурация для SITE1
     server {
         listen 443 ssl;
-        server_name ${SITE1_DOMAIN} www.${SITE1_DOMAIN};
+        server_name ${SITE1_DOMAIN};
 
         ssl_certificate /etc/letsencrypt/live/${SITE1_DOMAIN}/fullchain.pem;
         ssl_certificate_key /etc/letsencrypt/live/${SITE1_DOMAIN}/privkey.pem;
@@ -68,7 +103,7 @@ http {
     # HTTPS конфигурация для SITE2
     server {
         listen 443 ssl;
-        server_name ${SITE2_DOMAIN} www.${SITE2_DOMAIN};
+        server_name ${SITE2_DOMAIN};
 
         ssl_certificate /etc/letsencrypt/live/${SITE2_DOMAIN}/fullchain.pem;
         ssl_certificate_key /etc/letsencrypt/live/${SITE2_DOMAIN}/privkey.pem;
