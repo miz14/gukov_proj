@@ -69,8 +69,16 @@ header {
 #services,
 #prices,
 #faq,
-#contacts {
+#contacts,
+footer {
     background-color: var(--cl-block);
+}
+footer .block-container {
+    border-top: 1px solid var(--cl-border);
+}
+.warning {
+    max-width: 800px;
+    font-size: 14px;
 }
 
 #about-me,
